@@ -14,7 +14,9 @@ class SubjectController extends Controller
      */
     public function index()
     {
-        //
+        $subjects = Subject::all();
+
+        return view('subjects.index', compact('subjects'));
     }
 
     /**
@@ -46,7 +48,7 @@ class SubjectController extends Controller
      */
     public function show(Subject $subject)
     {
-        //
+        return view('subjects.show', compact('subject'));
     }
 
     /**

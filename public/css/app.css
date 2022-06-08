@@ -1,5 +1,23 @@
 @import url(https://fonts.googleapis.com/css?family=Nunito);
 @charset "UTF-8";
+.subjectCard {
+  padding: 10px 5px;
+  background-color: rgba(153, 152, 149, 0.1);
+  margin: 0px auto;
+  border-top: 4px solid rgba(153, 152, 149, 0.5);
+}
+
+.subjectButton {
+  text-decoration: none;
+  color: white;
+  width: 100%;
+  background-color: rgb(64, 64, 65);
+}
+
+.subjectButton:hover {
+  color: whitesmoke;
+}
+
 /*!
  * Bootstrap v5.1.3 (https://getbootstrap.com/)
  * Copyright 2011-2021 The Bootstrap Authors
