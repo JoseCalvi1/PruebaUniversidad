@@ -28,7 +28,7 @@ class SubjectController extends Controller
      */
     public function create()
     {
-        //
+        return view('subjects.create');
     }
 
     /**
@@ -39,15 +39,28 @@ class SubjectController extends Controller
      */
     public function store(Request $request)
     {
+        // Validación
+        $data = $request->validate([
+            'name' => 'required|min:3',
+            'degree' => 'required',
+            'credits' => 'required',
+            'academicCourse' => 'required',
+            'maxStudents' => 'required',
+        ]);
 
+
+        // Almacenar datos en la BD (sin modelos)
+        DB::table('subjects')->insert([
+            'name' => $data['name'],
+            'degree' => $data['degree'],
+            'credits' => $data['credits'],
+            'academicCourse' => $data['academicCourse'],
+            'maxStudents' => $data['maxStudents'],
+        ]);
+
+        return redirect()->action('App\Http\Controllers\SubjectController@index');
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
     public function suscribe(Request $request, Subject $subject)
     {
         DB::table('usersubject')->insert([

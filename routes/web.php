@@ -20,5 +20,7 @@ Route::get('/', function () {
 Auth::routes(['verify' => true]);
 
 Route::get('/home', [App\Http\Controllers\SubjectController::class, 'index'])->name('subjects.index');
+Route::get('/subject/create', [App\Http\Controllers\SubjectController::class, 'create'])->name('subjects.create');
 Route::get('/subjects/{subject}', [App\Http\Controllers\SubjectController::class, 'show'])->name('subjects.show');
 Route::post('/subject/{subject}', [App\Http\Controllers\SubjectController::class, 'suscribe'])->name('subjects.suscribe');
+Route::post('/subjects', [App\Http\Controllers\SubjectController::class, 'store'])->name('subjects.store');

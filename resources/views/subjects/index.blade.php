@@ -3,6 +3,12 @@
 @section('content')
 <div class="container">
     <h2 class="text-center">Asignaturas</h2>
+    @if (Auth::user()->isTeacher)
+        <a href="{{ route('subjects.create') }}" class="btn btn-outline-secondary mr-2 mb-4 text-uppercase font-weight-bold">
+            Agregar asignatura
+        </a>
+    @endif
+
     <div class="row justify-content-center">
         @foreach ($subjects as $subject)
             <div class="col-md-3 py-2">
