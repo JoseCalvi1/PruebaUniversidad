@@ -20,6 +20,7 @@ class CreateUsersTable extends Migration
             $table->string('qualifications')->nullable();
             $table->string('enrollment')->nullable();
             $table->string('email')->unique();
+            $table->boolean('isTeacher')->default(false);
             $table->string('birthyear')->nullable();
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
