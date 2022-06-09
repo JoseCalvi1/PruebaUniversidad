@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Models\Subject;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 
 class SubjectController extends Controller
 {
@@ -37,7 +39,23 @@ class SubjectController extends Controller
      */
     public function store(Request $request)
     {
-        //
+
+    }
+
+    /**
+     * Store a newly created resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
+    public function suscribe(Request $request, Subject $subject)
+    {
+        DB::table('usersubject')->insert([
+            'user_id' => Auth::user()->id,
+            'subject_id' => $subject->id,
+        ]);
+
+        return redirect()->back();
     }
 
     /**
@@ -48,7 +66,10 @@ class SubjectController extends Controller
      */
     public function show(Subject $subject)
     {
-        return view('subjects.show', compact('subject'));
+        $students = DB::table('usersubject')->where('subject_id', $subject->id)->get();
+        $suscribe = $students->where('user_id', Auth::user()->id);
+
+        return view('subjects.show', compact('subject', 'students', 'suscribe'));
     }
 
     /**

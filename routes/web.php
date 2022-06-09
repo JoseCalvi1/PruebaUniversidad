@@ -21,3 +21,4 @@ Auth::routes(['verify' => true]);
 
 Route::get('/home', [App\Http\Controllers\SubjectController::class, 'index'])->name('subjects.index');
 Route::get('/subjects/{subject}', [App\Http\Controllers\SubjectController::class, 'show'])->name('subjects.show');
+Route::post('/subject/{subject}', [App\Http\Controllers\SubjectController::class, 'suscribe'])->name('subjects.suscribe');

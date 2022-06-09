@@ -17,6 +17,19 @@
             </div>
             <div class="col-md-6 py-2">
                 <h3>Disponibilidad</h3>
+                @if (count($suscribe) > 0)
+                    Ya está inscrito en esta asignatura
+                @elseif (count($students) < $subject->maxStudents)
+                    <span style="color: green;">¡Quedan {{ $subject->maxStudents-count($students) }} plazas libres!</span>
+                    <form method="POST" action="{{ route('subjects.suscribe', ['subject' => $subject->id]) }}" enctype="multipart/form-data" novalidate>
+                        @csrf
+                        <div class="form-group py-2">
+                            <input type="submit" class="btn btn-primary" value="Inscribirse">
+                        </div>
+                    </form>
+                @else
+                    <span style="color: rgb(128, 0, 0);">Lo sentimos, se han agotado las plazas</span>
+                @endif
             </div>
     </div>
 </div>
