@@ -17,8 +17,9 @@ class SubjectController extends Controller
     public function index()
     {
         $subjects = Subject::all();
+        $userSubjects = Auth::user()->subjects()->get();
 
-        return view('subjects.index', compact('subjects'));
+        return view('subjects.index', compact('subjects', 'userSubjects'));
     }
 
     /**
@@ -81,8 +82,9 @@ class SubjectController extends Controller
     {
         $students = DB::table('usersubject')->where('subject_id', $subject->id)->get();
         $suscribe = $students->where('user_id', Auth::user()->id);
+        $studentsA = $subject->users()->get();
 
-        return view('subjects.show', compact('subject', 'students', 'suscribe'));
+        return view('subjects.show', compact('subject', 'students', 'suscribe', 'studentsA'));
     }
 
     /**
@@ -93,7 +95,7 @@ class SubjectController extends Controller
      */
     public function edit(Subject $subject)
     {
-        //
+        return view('subjects.edit', compact('subject'));
     }
 
     /**
@@ -105,7 +107,25 @@ class SubjectController extends Controller
      */
     public function update(Request $request, Subject $subject)
     {
-        //
+        // Validación
+        $data = $request->validate([
+            'name' => 'required|min:3',
+            'degree' => 'required',
+            'credits' => 'required',
+            'academicCourse' => 'required',
+            'maxStudents' => 'required',
+        ]);
+
+            // Asignar los valores
+            $subject->name = $data['name'];
+            $subject->degree = $data['degree'];
+            $subject->credits = $data['credits'];
+            $subject->academicCourse = $data['academicCourse'];
+            $subject->maxStudents = $data['maxStudents'];
+
+            $subject->save();
+
+        return redirect()->action('App\Http\Controllers\SubjectController@index');
     }
 
     /**
@@ -116,6 +136,8 @@ class SubjectController extends Controller
      */
     public function destroy(Subject $subject)
     {
-        //
+        $subject = Subject::find($subject->id);
+        $subject->delete();
+        return redirect()->action('App\Http\Controllers\SubjectController@index');
     }
 }

@@ -24,3 +24,6 @@ Route::get('/subject/create', [App\Http\Controllers\SubjectController::class, 'c
 Route::get('/subjects/{subject}', [App\Http\Controllers\SubjectController::class, 'show'])->name('subjects.show');
 Route::post('/subject/{subject}', [App\Http\Controllers\SubjectController::class, 'suscribe'])->name('subjects.suscribe');
 Route::post('/subjects', [App\Http\Controllers\SubjectController::class, 'store'])->name('subjects.store');
+Route::get('/subjects/{subject}/edit', [App\Http\Controllers\SubjectController::class, 'edit'])->name('subjects.edit');
+Route::put('/subjects/{subject}', [App\Http\Controllers\SubjectController::class, 'update'])->name('subjects.update');
+Route::delete('/subjects/{subject}', [App\Http\Controllers\SubjectController::class, 'destroy'])->name('subjects.destroy');

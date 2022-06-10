@@ -4,12 +4,24 @@
     margin: 0px auto;
     border-top: 4px solid rgba(153, 152, 149, 0.5);
 }
+.userSubjectCard {
+    padding: 10px 5px;
+    background-color: rgba(166, 247, 177, 0.1);
+    margin: 0px auto;
+    border-top: 4px solid rgba(27, 85, 35, 0.8);
+}
 .subjectButton {
     text-decoration: none;
     color:white;
     width: 100%;
     background-color:rgb(64, 64, 65);
 }
-.subjectButton:hover {
+.userSubjectButton {
+    text-decoration: none;
+    color:white;
+    width: 100%;
+    background-color:rgb(36, 73, 44);
+}
+.subjectButton:hover, .userSubjectButton:hover {
     color: whitesmoke;
 }
