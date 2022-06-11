@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Degree;
 use App\Models\Subject;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -29,7 +30,9 @@ class SubjectController extends Controller
      */
     public function create()
     {
-        return view('subjects.create');
+        $degrees = Degree::all();
+
+        return view('subjects.create', compact('degrees'));
     }
 
     /**
@@ -43,7 +46,7 @@ class SubjectController extends Controller
         // Validación
         $data = $request->validate([
             'name' => 'required|min:3',
-            'degree' => 'required',
+            'degree_id' => 'required',
             'credits' => 'required',
             'academicCourse' => 'required',
             'maxStudents' => 'required',
@@ -53,7 +56,7 @@ class SubjectController extends Controller
         // Almacenar datos en la BD (sin modelos)
         DB::table('subjects')->insert([
             'name' => $data['name'],
-            'degree' => $data['degree'],
+            'degree_id' => $data['degree_id'],
             'credits' => $data['credits'],
             'academicCourse' => $data['academicCourse'],
             'maxStudents' => $data['maxStudents'],
@@ -95,7 +98,9 @@ class SubjectController extends Controller
      */
     public function edit(Subject $subject)
     {
-        return view('subjects.edit', compact('subject'));
+        $degrees = Degree::all();
+
+        return view('subjects.edit', compact('subject', 'degrees'));
     }
 
     /**
@@ -110,7 +115,7 @@ class SubjectController extends Controller
         // Validación
         $data = $request->validate([
             'name' => 'required|min:3',
-            'degree' => 'required',
+            'degree_id' => 'required',
             'credits' => 'required',
             'academicCourse' => 'required',
             'maxStudents' => 'required',
@@ -118,7 +123,7 @@ class SubjectController extends Controller
 
             // Asignar los valores
             $subject->name = $data['name'];
-            $subject->degree = $data['degree'];
+            $subject->degree_id = $data['degree_id'];
             $subject->credits = $data['credits'];
             $subject->academicCourse = $data['academicCourse'];
             $subject->maxStudents = $data['maxStudents'];

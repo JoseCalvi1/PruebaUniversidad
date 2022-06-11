@@ -18,4 +18,9 @@ class Subject extends Model
     {
         return $this->belongsToMany(User::class, 'usersubject', 'subject_id' /* de subject */, 'user_id' /* de user */);
     }
+
+    public function degrees()
+    {
+        return $this->belongsTo(Degree::class, 'degree_id');
+    }
 }

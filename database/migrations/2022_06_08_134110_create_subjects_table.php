@@ -13,10 +13,16 @@ class CreateSubjectsTable extends Migration
      */
     public function up()
     {
+        Schema::create('degrees', function (Blueprint $table) {
+            $table->id();
+            $table->string('name');
+            $table->timestamps();
+        });
+
         Schema::create('subjects', function (Blueprint $table) {
             $table->id();
             $table->string('name');
-            $table->string('degree');
+            $table->foreignId('degree_id')->nullable()->constrained()->onDelete('cascade');
             $table->string('credits');
             $table->string('academicCourse');
             $table->string('maxStudents');
@@ -32,5 +38,6 @@ class CreateSubjectsTable extends Migration
     public function down()
     {
         Schema::dropIfExists('subjects');
+        Schema::dropIfExists('degrees');
     }
 }

@@ -34,17 +34,21 @@
                 </div>
 
                 <div class="form-group">
-                    <label for="degree">Titulación</label>
+                    <label for="degree_id">Titulación</label>
 
-                    <input type="text"
-                        name="degree"
-                        class="form-control @error('degree') is-invalid @enderror"
-                        id="degree"
-                        placeholder="Titulación a la que pertenece"
-                        value="{{ $subject->degree }}"
-                        />
+                    <select name="degree_id" id="degree_id" class="form-control @error('degree_id') is-invalid @enderror">
+                        @if ($subject->degree_id)
+                            <option value="{{ $subject->degrees->id }}">{{ $subject->degrees->name }}</option>
+                        @else
+                            <option disabled selected>- Selecciona -</option>
+                        @endif
 
-                        @error('degree')
+                        @foreach ($degrees as $degree)
+                            <option value="{{ $degree->id }}">{{ $degree->name }}</option>
+                        @endforeach
+                    </select>
+
+                        @error('degree_id')
                             <span class="invalid-feedback d-block" role="alert">
                                 <strong>{{$message}}</strong>
                             </span>

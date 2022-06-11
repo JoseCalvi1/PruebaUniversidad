@@ -19,7 +19,7 @@
             <div class="col-md-6 py-2">
                 <div>
                     <h3>{{ $subject->name }}</h3>
-                    <p>Grado en {{ $subject->degree }}</p>
+                    <p>Grado en {{ $subject->degrees->name }}</p>
                     <p>Nº de créditos: {{ $subject->credits }}</p>
                     <p>Curso Académico: {{ $subject->academicCourse }}º</p>
                     <p>Máximo de estudiantes: {{ $subject->maxStudents }}</p>
