@@ -29,3 +29,6 @@ Route::delete('/subjects/{subject}', [App\Http\Controllers\SubjectController::cl
 
 Route::post('/subject/{subject}', [App\Http\Controllers\SubjectController::class, 'suscribe'])->name('subjects.suscribe');
 Route::post('/test/{subject}', [App\Http\Controllers\SubjectController::class, 'test'])->name('subjects.test');
+
+Route::get('/calification', [App\Http\Controllers\HomeController::class, 'califications'])->name('users.califications');
+Route::get('/my-califications', [App\Http\Controllers\HomeController::class, 'usercalifications'])->name('users.usercalifications');
