@@ -17,8 +17,18 @@ class SubjectController extends Controller
      */
     public function index()
     {
-        $subjects = Subject::all();
+        // Asignaturas matriculadas por el alumno;
         $userSubjects = Auth::user()->subjects()->get();
+
+        // Asignaturas no matriculadas por el
+        $subjects = Subject::whereNotExists(function($query)
+            {
+                $query->select(DB::raw(1))
+                      ->from('usersubject')
+                      ->whereRaw('usersubject.subject_id = subjects.id')
+                      ->where('usersubject.user_id', '=', Auth::user()->id);
+            })
+            ->get();
 
         return view('subjects.index', compact('subjects', 'userSubjects'));
     }
@@ -86,7 +96,7 @@ class SubjectController extends Controller
         }
         $test->pivot->save();
 
-        return redirect()->action('App\Http\Controllers\SubjectController@index');
+        return redirect()->back();
     }
 
     /**
@@ -98,7 +108,7 @@ class SubjectController extends Controller
     public function show(Subject $subject)
     {
         $students = DB::table('usersubject')->where('subject_id', $subject->id)->get();
-        $suscribe = $students->where('user_id', Auth::user()->id);
+        $suscribe = $students->where('user_id', Auth::user()->id)->first();
         $studentsA = $subject->users()->get();
 
         return view('subjects.show', compact('subject', 'students', 'suscribe', 'studentsA'));

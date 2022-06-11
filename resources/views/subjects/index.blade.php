@@ -15,7 +15,7 @@
             <div class="col-md-3 py-2">
                 <div class="userSubjectCard">
                     <h3>{{ $usersubject->name }}</h3>
-                    <p>Grado en {{ $usersubject->degree }}</p>
+                    <p>Grado en {{ $usersubject->degrees->name }}</p>
                     <p>Nº de créditos: {{ $usersubject->credits }}</p>
                     <p>Curso Académico: {{ $usersubject->academicCourse }}º</p>
                     <p>Máximo de estudiantes: {{ $usersubject->maxStudents }}</p>
@@ -33,18 +33,22 @@
 
     <div class="row">
         <h2>Todas las asignaturas</h2>
-        @foreach ($subjects as $subject)
-            <div class="col-md-3 py-2">
-                <div class="subjectCard">
-                    <h3>{{ $subject->name }}</h3>
-                    <p>Grado en {{ $subject->degrees->name }}</p>
-                    <p>Nº de créditos: {{ $subject->credits }}</p>
-                    <p>Curso Académico: {{ $subject->academicCourse }}º</p>
-                    <p>Máximo de estudiantes: {{ $subject->maxStudents }}</p>
-                    <a href="{{ route('subjects.show', ['subject' => $subject->id]) }}" class="d-block font-weight-bold text-uppercase pt-2 pb-2 text-center subjectButton">Ver asignatura</a>
+        @if (count($subjects) < 1)
+            <p>Te has matriculado de todas las asignaturas</p>
+        @else
+            @foreach ($subjects as $subject)
+                <div class="col-md-3 py-2">
+                    <div class="subjectCard">
+                        <h3>{{ $subject->name }}</h3>
+                        <p>Grado en {{ $subject->degrees->name }}</p>
+                        <p>Nº de créditos: {{ $subject->credits }}</p>
+                        <p>Curso Académico: {{ $subject->academicCourse }}º</p>
+                        <p>Máximo de estudiantes: {{ $subject->maxStudents }}</p>
+                        <a href="{{ route('subjects.show', ['subject' => $subject->id]) }}" class="d-block font-weight-bold text-uppercase pt-2 pb-2 text-center subjectButton">Ver asignatura</a>
+                    </div>
                 </div>
-            </div>
-        @endforeach
+            @endforeach
+        @endif
     </div>
 </div>
 @endsection

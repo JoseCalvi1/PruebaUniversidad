@@ -35,11 +35,11 @@
                     @else
                         <p>Aún no hay estudiantes matriculados en esta asignatura.</p>
                     @endif
-                @elseif (count($suscribe) > 0)
+                @elseif ($suscribe)
                     <h3>Disponibilidad</h3>
                     <p>Ya está inscrito en esta asignatura</p>
 
-                        @if (!$suscribe[0]->firstTest)
+                        @if (!$suscribe->firstTest)
                             <p class="pb-2">¿Deseas realizar el examen?</p>
                             <form method="POST" action="{{ route('subjects.test', ['subject' => $subject->id]) }}" enctype="multipart/form-data" novalidate>
                                 @csrf
@@ -47,18 +47,18 @@
                                     <input type="submit" class="btn btn-primary" value="Realizar">
                                 </div>
                             </form>
-                        @elseif ($suscribe[0]->firstTest < 5 && !$suscribe[0]->secondTest)
-                            <p class="pb-2">Has suspendido la primera convocatoria con un {{ $suscribe[0]->firstTest }} ¿Deseas realizar la segunda?</p>
+                        @elseif ($suscribe->firstTest < 5 && !$suscribe->secondTest)
+                            <p class="pb-2">Has suspendido la primera convocatoria con un {{ $suscribe->firstTest }} ¿Deseas realizar la segunda?</p>
                             <form method="POST" action="{{ route('subjects.test', ['subject' => $subject->id]) }}" enctype="multipart/form-data" novalidate>
                                 @csrf
                                 <div class="form-group py-2">
                                     <input type="submit" class="btn btn-primary" value="Realizar">
                                 </div>
                             </form>
-                        @elseif ($suscribe[0]->firstTest < 5 && $suscribe[0]->secondTest < 5)
-                            <p>Lo sentimos, has suspendido las dos convocatorias con un {{ $suscribe[0]->firstTest }} y un {{ $suscribe[0]->secondTest }} respectivamente, tendrás que esperar al siguiente año para volver a presentarte.</p>
+                        @elseif ($suscribe->firstTest < 5 && $suscribe->secondTest < 5)
+                            <p>Lo sentimos, has suspendido las dos convocatorias con un {{ $suscribe->firstTest }} y un {{ $suscribe->secondTest }} respectivamente, tendrás que esperar al siguiente año para volver a presentarte.</p>
                         @else
-                            <p>¡Enhorabuena, has aprobado la asignatura con un {{ ($suscribe[0]->firstTest > 4) ? $suscribe[0]->firstTest : $suscribe[0]->secondTest }}!</p>
+                            <p>¡Enhorabuena, has aprobado la asignatura con un {{ ($suscribe->firstTest > 4) ? $suscribe->firstTest : $suscribe->secondTest }}!</p>
                         @endif
 
                 @elseif (count($students) < $subject->maxStudents)
