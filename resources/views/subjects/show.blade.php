@@ -37,7 +37,30 @@
                     @endif
                 @elseif (count($suscribe) > 0)
                     <h3>Disponibilidad</h3>
-                    Ya está inscrito en esta asignatura
+                    <p>Ya está inscrito en esta asignatura</p>
+
+                        @if (!$suscribe[0]->firstTest)
+                            <p class="pb-2">¿Deseas realizar el examen?</p>
+                            <form method="POST" action="{{ route('subjects.test', ['subject' => $subject->id]) }}" enctype="multipart/form-data" novalidate>
+                                @csrf
+                                <div class="form-group py-2">
+                                    <input type="submit" class="btn btn-primary" value="Realizar">
+                                </div>
+                            </form>
+                        @elseif ($suscribe[0]->firstTest < 5 && !$suscribe[0]->secondTest)
+                            <p class="pb-2">Has suspendido la primera convocatoria con un {{ $suscribe[0]->firstTest }} ¿Deseas realizar la segunda?</p>
+                            <form method="POST" action="{{ route('subjects.test', ['subject' => $subject->id]) }}" enctype="multipart/form-data" novalidate>
+                                @csrf
+                                <div class="form-group py-2">
+                                    <input type="submit" class="btn btn-primary" value="Realizar">
+                                </div>
+                            </form>
+                        @elseif ($suscribe[0]->firstTest < 5 && $suscribe[0]->secondTest < 5)
+                            <p>Lo sentimos, has suspendido las dos convocatorias con un {{ $suscribe[0]->firstTest }} y un {{ $suscribe[0]->secondTest }} respectivamente, tendrás que esperar al siguiente año para volver a presentarte.</p>
+                        @else
+                            <p>¡Enhorabuena, has aprobado la asignatura con un {{ ($suscribe[0]->firstTest > 4) ? $suscribe[0]->firstTest : $suscribe[0]->secondTest }}!</p>
+                        @endif
+
                 @elseif (count($students) < $subject->maxStudents)
                     <h3>Disponibilidad</h3>
                     <span style="color: green;">¡Quedan {{ $subject->maxStudents-count($students) }} plazas libres!</span>

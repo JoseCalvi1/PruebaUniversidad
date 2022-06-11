@@ -75,6 +75,20 @@ class SubjectController extends Controller
         return redirect()->back();
     }
 
+    public function test(Request $request, Subject $subject)
+    {
+        $user = Auth::user();
+        $test = $user->subjects()->where('subject_id', $subject->id)->first();
+        if (!$test->pivot->firstTest) {
+            $test->pivot->firstTest = random_int(0, 10);
+        } else {
+            $test->pivot->secondTest = random_int(0, 10);
+        }
+        $test->pivot->save();
+
+        return redirect()->action('App\Http\Controllers\SubjectController@index');
+    }
+
     /**
      * Display the specified resource.
      *

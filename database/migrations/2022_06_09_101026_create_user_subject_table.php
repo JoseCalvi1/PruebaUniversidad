@@ -17,6 +17,8 @@ class CreateUserSubjectTable extends Migration
             $table->id();
             $table->unsignedBigInteger('user_id');
             $table->unsignedBigInteger('subject_id');
+            $table->string('firstTest')->nullable();
+            $table->string('secondTest')->nullable();
             // foreign keys
             $table->foreign('user_id')->references('id')->on('users');
             $table->foreign('subject_id')->references('id')->on('subjects');

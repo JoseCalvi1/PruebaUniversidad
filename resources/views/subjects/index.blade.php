@@ -9,7 +9,7 @@
         </a>
     @else
     <div class="row pb-5">
-        <h2>Mis asignaturas</h2>
+        <h2>Mis matrículas</h2>
         @if (count($userSubjects) > 0)
             @foreach ($userSubjects as $usersubject)
             <div class="col-md-3 py-2">
