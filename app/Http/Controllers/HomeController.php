@@ -31,6 +31,7 @@ class HomeController extends Controller
 
     public function califications()
     {
+        // Traer las notas de los alumnos y sus asignaturas
         $mySubjects = DB::table('usersubject')
                         ->join('subjects', 'subjects.id', '=', 'usersubject.subject_id')
                         ->join('users', 'users.id', '=', 'usersubject.user_id')
@@ -43,6 +44,7 @@ class HomeController extends Controller
 
     public function usercalifications()
     {
+        // Traer las notas del alumno logeado en sus asginaturas
         $mySubjects = DB::table('usersubject')->where('user_id', Auth::user()->id)
                         ->join('subjects', 'subjects.id', '=', 'usersubject.subject_id')
                         ->select('subjects.*', 'usersubject.*')

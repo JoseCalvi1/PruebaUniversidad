@@ -17,10 +17,10 @@ class SubjectController extends Controller
      */
     public function index()
     {
-        // Asignaturas matriculadas por el alumno;
+        // Asignaturas matriculadas por el alumno
         $userSubjects = Auth::user()->subjects()->get();
 
-        // Asignaturas no matriculadas por el
+        // Asignaturas no matriculadas por el alumno
         $subjects = Subject::whereNotExists(function($query)
             {
                 $query->select(DB::raw(1))
@@ -77,6 +77,7 @@ class SubjectController extends Controller
 
     public function suscribe(Request $request, Subject $subject)
     {
+        // Almacenar datos en la BD (sin modelos)
         DB::table('usersubject')->insert([
             'user_id' => Auth::user()->id,
             'subject_id' => $subject->id,
@@ -89,6 +90,8 @@ class SubjectController extends Controller
     {
         $user = Auth::user();
         $test = $user->subjects()->where('subject_id', $subject->id)->first();
+
+        // Agregar notas según los exámenes que haya hecho
         if (!$test->pivot->firstTest) {
             $test->pivot->firstTest = random_int(0, 10);
         } else {
@@ -167,6 +170,7 @@ class SubjectController extends Controller
     {
         $subject = Subject::find($subject->id);
         $subject->delete();
+
         return redirect()->action('App\Http\Controllers\SubjectController@index');
     }
 }

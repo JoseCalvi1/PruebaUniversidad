@@ -12,7 +12,7 @@
         <form method="POST" action="{{ route('subjects.destroy', ['subject' => $subject->id]) }}" style="display: contents;">
             @method('DELETE')
             @csrf
-            <button type="submit" class="btn btn-danger mr-2 text-uppercase font-weight-bold m-4 flex-right">Eliminar asignatura</button>
+            <button type="submit" onclick="return myFunction();" class="btn btn-danger mr-2 text-uppercase font-weight-bold m-4 flex-right">Eliminar asignatura</button>
         </form>
     @endif
     <div class="row justify-content-center">
@@ -78,3 +78,14 @@
     </div>
 </div>
 @endsection
+
+@section('scripts')
+<script>
+    function myFunction() {
+        if(!confirm("¿Estás seguro/a de borrar esta asignatura?"))
+        event.preventDefault();
+    }
+   </script>
+@endsection
+
+

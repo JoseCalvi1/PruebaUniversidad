@@ -70,7 +70,7 @@
             <div class="form-group">
                 <label for="academicCourse">Curso académico</label>
 
-                <input type="academicCourse"
+                <input type="number"
                     name="academicCourse"
                     class="form-control @error('academicCourse') is-invalid @enderror"
                     id="academicCourse"

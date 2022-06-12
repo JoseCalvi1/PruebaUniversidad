@@ -53,6 +53,11 @@
                             @endif
                         @else
 
+                            <li class="nav-item">
+                                <a class="nav-link" href="{{ route('subjects.index') }}">
+                                    {{ 'Inicio' }}
+                                </a>
+                            </li>
                             @if (Auth::user()->isTeacher)
                                 <li class="nav-item">
                                     <a class="nav-link" href="{{ route('users.califications') }}">
@@ -94,4 +99,5 @@
         </main>
     </div>
 </body>
+@yield('scripts')
 </html>

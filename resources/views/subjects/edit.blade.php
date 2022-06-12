@@ -81,7 +81,7 @@
                         class="form-control @error('academicCourse') is-invalid @enderror"
                         id="academicCourse"
                         placeholder="Curso académico perteneciente de la asignatura"
-                        value="{{ $subject->academicCourse  }}"
+                        value="{{ $subject->academicCourse }}"
                         />
 
                         @error('academicCourse')
